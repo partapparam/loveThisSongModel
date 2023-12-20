@@ -3,6 +3,7 @@
 
 import pandas as pd
 import numpy as np
+from flask import jsonify
 
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction import DictVectorizer
@@ -76,17 +77,14 @@ def train(df_train, y_train, xgb_params):
     return dv, xgb_model
 
 # function to predict using the model and DictVectorizer
-def predict(df, dv, model):
-    if df['Unnamed: 0']:
-        del df['Unnamed: 0']
-    if df['song_title']:
-        del df['song_title']
+def prediction(data, dv, model):
+    array = [data]
+    df = pd.DataFrame(array)
+    del df['song_title']
 
     y_test = df['target']
     del df['target']
-
     features = list(dv.get_feature_names_out())
-
 
     df_dict = df.to_dict(orient='records')
 
@@ -95,8 +93,9 @@ def predict(df, dv, model):
 
     xgb_pred = model.predict(dtest)
     xgb_liked = (xgb_pred >= 0.5)
+    result = {"Like probability": float(xgb_pred), "Liked": bool(xgb_liked)}
 
-    return xgb_liked
+    return result
 
 
 dv, xgb_model = train(df_train, y_train, xgb_params_final)
