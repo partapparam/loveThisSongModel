@@ -1,3 +1,5 @@
+# This code will help us get the data for our own playlists from spotify
+
 # import pandas as pd 
 # import spotipy 
 # sp = spotipy.Spotify() 
