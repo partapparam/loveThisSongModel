@@ -109,3 +109,7 @@ In second terminal, run:
 Run in another terminal:
 
 `python predict_test.py`
+
+### Final Thoughts
+
+Running tests on a country song (not liked) and a Hip-hop song (liked)showed what I expected. The data was more scattered then I had hoped but it shows clearly that `energy` and `danceability` play a crucial role in the likeability of a song.
